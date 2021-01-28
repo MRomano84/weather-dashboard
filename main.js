@@ -8,7 +8,6 @@ $(document).ready(function() {
     const cityHeader = document.querySelector("cityHeader");
     const currentCity = document.querySelector("currentCity");
     const currentTemp = document.querySelector("temp");
-    const humidity = document.querySelector("humidity");
     const currentWind = document.querySelector("wind");
     const uvIndex = document.querySelector("uvIndex");
     
@@ -21,16 +20,20 @@ $(document).ready(function() {
     const searchHistory = document.querySelector("section.history");
     let searchHistoryArr = [];
     //Dayjs current time
-    const date = dayjs().format("D MMM, YYYY");
-
-
-
+    
+    let city = document.getElementById("searchInput").value;
 
     
-    //Search Openweather API with user input
-    function displayForecast(cityName) {
-        let queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
 
+    
+    $(searchBtn).on("click", displayForecast);
+    
+    //Search Openweather API with user input
+    function displayForecast() {
+        let city = document.getElementById("searchInput").value;
+        let queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+        console.log(city);
+        
         $.ajax({
             url: queryUrl,
             method: "GET",
@@ -38,15 +41,36 @@ $(document).ready(function() {
             showCurrentWeather(response);
             console.log(response);
         })
+        
     }
     
-    $(searchBtn).on("click", displayForecast);
-
-
+    
+    
     function showCurrentWeather(data) {
-        document.getElementById("cityHeader").textContent = date;
-        document.getElementById("currentCity").textContent = "Temp: " + (data.main.temp -273) * 9/5 + 32 + " F";
-    }
+        let currentDate = dayjs().format("D MMM, YYYY");
+        document.getElementById("cityHeader").text = currentDate;
+        
+        let temp = "Temperature: " + (1.8 * (data.main.temp - 273) + 32).toFixed(0) + " F°";
+        let humidity = "Humidity: " + data.main.humidity;
+        let wind = "Wind Speed: " + data.wind.speed.toFixed(0) + "mph";
 
-    showCurrentWeather();
+
+        $("#cityHeader").empty();
+        $("#currentCity").empty();
+        $("#temp").empty();  
+        $("#humidity").empty();
+        $("#wind").empty();  
+
+
+        $("#cityHeader").append(currentDate);
+        $("#currentCity").append(data.name);
+        $("#temp").append(temp);  
+        $("#humidity").append(humidity);  
+        $("#wind").append(wind);  
+
+
+
+
+    }
+    
 });

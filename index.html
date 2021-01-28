@@ -31,8 +31,8 @@
         <div class="col-md-3 sidebar">
             <h5 class="card-title">City Search</h5>
             <section class="row citySearch">
-                <input type="text" class="col-md-10 searchInput">
-                    <button type="button" class="searchBtn col-md-2"></button>
+                <input type="text" class="col-md-10 searchInput" id="searchInput" value="">
+                    <button type="button" class="searchBtn col-md-2" id="searchBtn"></button>
             </section>
             <section class="history">
                 <article class="searchHistory"></article>
@@ -43,7 +43,7 @@
         <div class="col-md-9 flexcol" id="currentWrapper">
             
             <section class="current">
-                <h2 id="cityHeader">Current Conditions</h2>
+                <h2 id="cityHeader"></h2>
                 <article class= "cityName" id="currentCity"></article>
                 <article class="currentInfo" id="temp"></article>
                 <article class="currentInfo" id="humidity"></article>
