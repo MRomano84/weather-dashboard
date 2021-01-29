@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     //Openweather API key
     const apiKey = "04fd169e0aae8bb627a82ef7c675ce19";
-    
+
     //Current Conditions elements
     const currentWrapper = document.querySelector("currentWrapper");
     const cityHeader = document.querySelector("cityHeader");
@@ -10,7 +10,7 @@ $(document).ready(function() {
     const currentTemp = document.querySelector("temp");
     const currentWind = document.querySelector("wind");
     const uvIndex = document.querySelector("uvIndex");
-    
+
     //Forcast Panel Elements
     const forecastPanel = $("div.forecast");
 
@@ -20,86 +20,86 @@ $(document).ready(function() {
     const searchHistory = document.querySelector("section.history");
     let searchHistoryArr = [];
     //Dayjs current time
-    
+
     let city = document.getElementById("searchInput").value;
 
-    
 
-    
+
+
     $(searchBtn).on("click", getForecast);
 
 
-    function loadSavedData() {
-        let storedSerches = JSON.parse(localStorage.getItem(weatherHistory));
-        
-        if (!storedSerches || storedSerches.length == 0) {
-            return
-        } 
-        else {
-            storedSerches.forEach((item) => {
-                searchHistoryArr = [...storedSerches];
-            });
-            for (i = 0; i < searchHistoryArr.length; i++) {
-                $("#history").append("<article class=citySearch>" + searchHistoryArr[i] + "</article>");
-            }
-        }
-    };
-    
+    // function loadSavedData() {
+    //     let storedSerches = JSON.parse(localStorage.getItem(weatherHistory));
+
+    //     if (!storedSerches || storedSerches.length == 0) {
+    //         return
+    //     }
+    //     else {
+    //         storedSerches.forEach((item) => {
+    //             searchHistoryArr = [...storedSerches];
+    //         });
+    //         for (i = 0; i < searchHistoryArr.length; i++) {
+    //             $("#history").append("<article class=citySearch>" + searchHistoryArr[i] + "</article>");
+    //         }
+    //     }
+    // };
+
     //Search Openweather API with user input
     function getForecast() {
         let city = document.getElementById("searchInput").value;
         let queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-        
+
         $.ajax({
             url: queryUrl,
             method: "GET",
-        }).then(function(response) {
+        }).then(function (response) {
             showCurrentWeather(response);
             console.log(response);
         })
-        
-        
+
+
     }
-    
-    
-    
+
+
+
     function showCurrentWeather(data) {
         let currentDate = dayjs().format("D MMM, YYYY");
         document.getElementById("cityHeader").text = currentDate;
-        
+
         let temp = "Temperature: " + (1.8 * (data.main.temp - 273) + 32).toFixed(0) + " F°";
         let humidity = "Humidity: " + data.main.humidity;
         let wind = "Wind Speed: " + data.wind.speed.toFixed(0) + "mph";
-        
-        
+
+
         $("#cityHeader").empty();
         $("#currentCity").empty();
-        $("#temp").empty();  
+        $("#temp").empty();
         $("#humidity").empty();
-        $("#wind").empty();  
-        
-        
+        $("#wind").empty();
+
+
         $("#cityHeader").append(currentDate);
         $("#currentCity").append(data.name);
-        $("#temp").append(temp);  
-        $("#humidity").append(humidity);  
-        $("#wind").append(wind);  
+        $("#temp").append(temp);
+        $("#humidity").append(humidity);
+        $("#wind").append(wind);
 
-        
-        
+
+
         //OneCall API
         let oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly,alerts&appid=" + apiKey;
-        
+
         $.ajax({
             url: oneCallUrl,
             method: "GET",
-        }).then(function(oneCall) {
+        }).then(function (oneCall) {
             console.log(oneCall);
-            
-        //5 day Forecast
-        //Day 1    
-        let day1Unix = oneCall.daily[1].dt * 1000;
-        let day1Image = oneCall.daily[1].weather[0].icon;
+
+            //5 day Forecast
+            //Day 1    
+            let day1Unix = oneCall.daily[1].dt * 1000;
+            let day1Image = oneCall.daily[1].weather[0].icon;
             let day1DateObj = new Date(day1Unix);
             let day1Date = day1DateObj.toLocaleDateString("en-US");
             let day1Temp = "Temp: " + (1.8 * (oneCall.daily[1].temp.day - 273) + 32).toFixed(0) + " F°";
@@ -107,7 +107,7 @@ $(document).ready(function() {
             $("#date1").append(day1Date);
             $("#date1Temp").append(day1Temp);
             $("#date1Humi").append(day1Humi);
-            
+
             //Day2
             let day2Unix = oneCall.daily[2].dt * 1000;
             let day2DateObj = new Date(day2Unix);
@@ -137,7 +137,7 @@ $(document).ready(function() {
             $("#date4").append(day4Date);
             $("#date4Temp").append(day4Temp);
             $("#date4Humi").append(day4Humi);
-            
+
             //Day 5
             let day5Unix = oneCall.daily[5].dt * 1000;
             let day5DateObj = new Date(day5Unix);
@@ -149,8 +149,29 @@ $(document).ready(function() {
             $("#date5Humi").append(day5Humi);
 
         })
-        
+
     }
-    
+
     $("#searchInput").empty();
 });
+
+function getName() {
+    return localStorage.getItem("userName");
+}
+
+function updateHTML() {
+    var name = getName();
+    document.getElementById("greeting").innerHTML = "Hello, " + name + "! Welcome!";
+    document.getElementById("storedName").innerHTML = name;
+}
+
+function myFunction() {
+    // Gets input value
+    var name = document.getElementById("myInput").value;
+
+    // Saves data to retrieve later
+    localStorage.setItem("userName", name);
+
+    // Updates HTML
+    updateHTML();
+}

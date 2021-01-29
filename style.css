@@ -1,10 +1,18 @@
 body {
     background-color: #031a6b;
     text-align: center;
+    display: inline;
+    margin: 0;
+    padding: 0;
 }
 
 div.container {
-    justify-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px #05b2dc solid;
+    width: auto;
+    margin: 0;
+    padding: 0;
 }
 
 header.header {
@@ -19,6 +27,10 @@ section.fiveDay {
 
 section.current {
     background-color: #004385;
+}
+
+div.forecast {
+    justify-content: space-evenly;
 }
 
 #headerText,
