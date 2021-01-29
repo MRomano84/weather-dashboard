@@ -1,5 +1,5 @@
 body {
-    background-color: #eef0f2;
+    background-color: #031a6b;
     text-align: center;
 }
 
@@ -8,23 +8,23 @@ div.container {
 }
 
 header.header {
-    background-color: #c6c7c4;
+    background-color: #033860;
     text-align: center;
 }
 
 div.sidebar,
 section.fiveDay {
-    background-color: #a2999e;
+    background-color: #087ca7;
 }
 
 section.current {
-    background-color: #846a6a;
+    background-color: #004385;
 }
 
 #headerText,
 #searchTitle,
 #cityHeader,
 #fiveDayHeader {
-    color: wheat;
+    color: white;
     text-shadow: 2px 2px black;
 }
