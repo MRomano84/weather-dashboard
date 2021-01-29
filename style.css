@@ -1,0 +1,30 @@
+body {
+    background-color: #eef0f2;
+    text-align: center;
+}
+
+div.container {
+    justify-items: center;
+}
+
+header.header {
+    background-color: #c6c7c4;
+    text-align: center;
+}
+
+div.sidebar,
+section.fiveDay {
+    background-color: #a2999e;
+}
+
+section.current {
+    background-color: #846a6a;
+}
+
+#headerText,
+#searchTitle,
+#cityHeader,
+#fiveDayHeader {
+    color: wheat;
+    text-shadow: 2px 2px black;
+}
