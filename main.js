@@ -27,6 +27,23 @@ $(document).ready(function() {
 
     
     $(searchBtn).on("click", getForecast);
+
+
+    function loadSavedData() {
+        let storedSerches = JSON.parse(localStorage.getItem(weatherHistory));
+        
+        if (!storedSerches || storedSerches.length == 0) {
+            return
+        } 
+        else {
+            storedSerches.forEach((item) => {
+                searchHistoryArr = [...storedSerches];
+            });
+            for (i = 0; i < searchHistoryArr.length; i++) {
+                $("#history").append("<article class=citySearch>" + searchHistoryArr[i] + "</article>");
+            }
+        }
+    };
     
     //Search Openweather API with user input
     function getForecast() {
@@ -40,7 +57,6 @@ $(document).ready(function() {
             showCurrentWeather(response);
             console.log(response);
         })
-
         
         
     }
@@ -69,11 +85,11 @@ $(document).ready(function() {
         $("#humidity").append(humidity);  
         $("#wind").append(wind);  
 
-
+        
         
         //OneCall API
         let oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly,alerts&appid=" + apiKey;
-
+        
         $.ajax({
             url: oneCallUrl,
             method: "GET",
@@ -81,69 +97,60 @@ $(document).ready(function() {
             console.log(oneCall);
             
         //5 day Forecast
-            //Day 1    
-            let day1Unix = oneCall.daily[1].dt * 1000;
-            let day1Image = oneCall.daily[1].weather[0].icon;
+        //Day 1    
+        let day1Unix = oneCall.daily[1].dt * 1000;
+        let day1Image = oneCall.daily[1].weather[0].icon;
             let day1DateObj = new Date(day1Unix);
             let day1Date = day1DateObj.toLocaleDateString("en-US");
             let day1Temp = "Temp: " + (1.8 * (oneCall.daily[1].temp.day - 273) + 32).toFixed(0) + " F°";
             let day1Humi = "Humidity: " + oneCall.daily[1].humidity;
-
+            $("#date1").append(day1Date);
+            $("#date1Temp").append(day1Temp);
+            $("#date1Humi").append(day1Humi);
+            
+            //Day2
             let day2Unix = oneCall.daily[2].dt * 1000;
             let day2DateObj = new Date(day2Unix);
             let day2Date = day2DateObj.toLocaleDateString("en-US");
             let day2Temp = "Temp: " + (1.8 * (oneCall.daily[2].temp.day - 273) + 32).toFixed(0) + " F°";
             let day2Humi = "Humidity: " + oneCall.daily[2].humidity;
+            $("#date2").append(day2Date);
+            $("#date2Temp").append(day2Temp);
+            $("#date2Humi").append(day2Humi);
 
+            //Day 3
             let day3Unix = oneCall.daily[3].dt * 1000;
             let day3DateObj = new Date(day3Unix);
             let day3Date = day3DateObj.toLocaleDateString("en-US");
             let day3Temp = "Temp: " + (1.8 * (oneCall.daily[3].temp.day - 273) + 32).toFixed(0) + " F°";
             let day3Humi = "Humidity: " + oneCall.daily[3].humidity;
+            $("#date3").append(day3Date);
+            $("#date3Temp").append(day3Temp);
+            $("#date3Humi").append(day3Humi);
 
-
+            //Day 4
             let day4Unix = oneCall.daily[4].dt * 1000;
             let day4DateObj = new Date(day4Unix);
             let day4Date = day4DateObj.toLocaleDateString("en-US");
             let day4Temp = "Temp: " + (1.8 * (oneCall.daily[4].temp.day - 273) + 32).toFixed(0) + " F°";
             let day4Humi = "Humidity: " + oneCall.daily[4].humidity;
-
-
+            $("#date4").append(day4Date);
+            $("#date4Temp").append(day4Temp);
+            $("#date4Humi").append(day4Humi);
+            
+            //Day 5
             let day5Unix = oneCall.daily[5].dt * 1000;
             let day5DateObj = new Date(day5Unix);
             let day5Date = day5DateObj.toLocaleDateString("en-US");
             let day5Temp = "Temp: " + (1.8 * (oneCall.daily[5].temp.day - 273) + 32).toFixed(0) + " F°";
             let day5Humi = "Humidity: " + oneCall.daily[5].humidity;
-
-
-            console.log(day1Date);
-            console.log(oneCall.daily[0].temp.day);
-            console.log(day2Temp);
-            $("#date1").append(day1Date);
-            $("#date1Temp").append(day1Temp);
-            $("#date1Humi").append(day1Humi);
-
-            $("#date2").append(day2Date);
-            $("#date2Temp").append(day2Temp);
-            $("#date2Humi").append(day2Humi);
-
-            $("#date3").append(day3Date);
-            $("#date3Temp").append(day3Temp);
-            $("#date3Humi").append(day3Humi);
-
-            $("#date4").append(day4Date);
-            $("#date4Temp").append(day4Temp);
-            $("#date4Humi").append(day4Humi);
-
             $("#date5").append(day5Date);
             $("#date5Temp").append(day5Temp);
             $("#date5Humi").append(day5Humi);
 
-
         })
         
-        
     }
-
     
+    $("#searchInput").empty();
 });
