@@ -33,6 +33,10 @@ div.forecast {
     justify-content: space-evenly;
 }
 
+article.searchHistory {
+    display: block;
+}
+
 #headerText,
 #searchTitle,
 #cityHeader,

@@ -20,36 +20,41 @@ $(document).ready(function () {
     const searchHistory = document.querySelector("section.history");
     let searchHistoryArr = [];
     //Dayjs current time
-
+    
     let city = document.getElementById("searchInput").value;
-
-
-
+    
+    
+    
 
     $(searchBtn).on("click", getForecast);
-
-
-    // function loadSavedData() {
-    //     let storedSerches = JSON.parse(localStorage.getItem(weatherHistory));
-
-    //     if (!storedSerches || storedSerches.length == 0) {
-    //         return
-    //     }
-    //     else {
-    //         storedSerches.forEach((item) => {
-    //             searchHistoryArr = [...storedSerches];
-    //         });
-    //         for (i = 0; i < searchHistoryArr.length; i++) {
-    //             $("#history").append("<article class=citySearch>" + searchHistoryArr[i] + "</article>");
-    //         }
-    //     }
-    // };
+    
+    function getCity() {
+        return localStorage.getItem("searchedCity");
+    }
+    
+    function updateHTML() {
+        let city = getCity();
+    }
+    
+    function setCity() {
+        // Gets input value
+        let city = document.getElementById("searchInput").value;
+        // Saves data to retrieve later
+        localStorage.setItem("searchedCity", city);
+        
+        let search = $("#searchHistory");
+        search.append(city);
+        // Updates HTML
+        updateHTML();
+    }
+    
 
     //Search Openweather API with user input
     function getForecast() {
         let city = document.getElementById("searchInput").value;
         let queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
+        
         $.ajax({
             url: queryUrl,
             method: "GET",
@@ -57,34 +62,38 @@ $(document).ready(function () {
             showCurrentWeather(response);
             console.log(response);
         })
-
-
+        setCity();
+        
+        
     }
-
-
-
+    
+    
+    
     function showCurrentWeather(data) {
         let currentDate = dayjs().format("D MMM, YYYY");
         document.getElementById("cityHeader").text = currentDate;
-
+        
         let temp = "Temperature: " + (1.8 * (data.main.temp - 273) + 32).toFixed(0) + " F°";
         let humidity = "Humidity: " + data.main.humidity;
         let wind = "Wind Speed: " + data.wind.speed.toFixed(0) + "mph";
-
-
+        
+        
         $("#cityHeader").empty();
         $("#currentCity").empty();
         $("#temp").empty();
         $("#humidity").empty();
         $("#wind").empty();
-
-
+        $(".dayDate").empty();
+        $(".dayTemp").empty();
+        $(".dayHumi").empty();
+        
+        
         $("#cityHeader").append(currentDate);
         $("#currentCity").append(data.name);
         $("#temp").append(temp);
         $("#humidity").append(humidity);
         $("#wind").append(wind);
-
+        
 
 
         //OneCall API
@@ -154,24 +163,3 @@ $(document).ready(function () {
 
     $("#searchInput").empty();
 });
-
-function getName() {
-    return localStorage.getItem("userName");
-}
-
-function updateHTML() {
-    var name = getName();
-    document.getElementById("greeting").innerHTML = "Hello, " + name + "! Welcome!";
-    document.getElementById("storedName").innerHTML = name;
-}
-
-function myFunction() {
-    // Gets input value
-    var name = document.getElementById("myInput").value;
-
-    // Saves data to retrieve later
-    localStorage.setItem("userName", name);
-
-    // Updates HTML
-    updateHTML();
-}
