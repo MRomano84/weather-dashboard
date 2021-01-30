@@ -34,6 +34,7 @@ $(document).ready(function () {
     
     function updateHTML() {
         let city = getCity();
+
     }
     
     function setCity() {
@@ -164,4 +165,6 @@ $(document).ready(function () {
     }
 
     $("#searchInput").empty();
+
+    
 });

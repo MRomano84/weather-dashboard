@@ -1,7 +1,13 @@
 body {
     background-color: #031a6b;
+    color: white;
     text-align: center;
     display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+div.wrapper {
     margin: 0;
     padding: 0;
 }
@@ -41,6 +47,5 @@ article.searchHistory {
 #searchTitle,
 #cityHeader,
 #fiveDayHeader {
-    color: white;
     text-shadow: 2px 2px black;
 }
