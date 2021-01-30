@@ -43,7 +43,9 @@ $(document).ready(function () {
         localStorage.setItem("searchedCity", city);
         
         let search = $("#searchHistory");
-        search.append(city);
+        let savedCity = $("<h5>");
+        savedCity.append(city);
+        search.append(savedCity);
         // Updates HTML
         updateHTML();
     }
