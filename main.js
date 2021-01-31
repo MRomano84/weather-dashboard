@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //Current Date Header
     $("#cityHeader").empty();
     let currentDate = dayjs().format("D MMM, YYYY");
     document.getElementById("cityHeader").text = currentDate;
@@ -7,33 +9,14 @@ $(document).ready(function () {
     //Openweather API key
     const apiKey = "04fd169e0aae8bb627a82ef7c675ce19";
     
-    // //Current Conditions elements
-    // const currentWrapper = document.querySelector("currentWrapper");
-    // const cityHeader = document.querySelector("cityHeader");
-    // const currentCity = document.querySelector("currentCity");
-    // const currentTemp = document.querySelector("temp");
-    // const currentWind = document.querySelector("wind");
-    // const uvIndex = document.querySelector("uvIndex");
-    
-    // //Forcast Panel Elements
-    // const forecastPanel = $("div.forecast");
-    
-    // //Search Elements
-    // const searchInput = document.querySelector("input.searchInput");
+    //Search button
     const searchBtn = document.querySelector("button.searchBtn");
-    // const searchHistory = document.querySelector("section.history");
-    // let searchHistoryArr = [];
-    // //Dayjs current time
-    
-    // let city = document.getElementById("searchInput").value;
-    
-    
-    
 
+    //Kick it off
     $(searchBtn).on("click", getForecast);
     
     function getCity() {
-        return localStorage.getItem("searchedCity");
+        return localStorage.getItem(JSON.parse(choice));
     }
     
     function updateHTML() {
@@ -79,14 +62,14 @@ $(document).ready(function () {
     }
     
     
-    
+    //Search oneCall API and append forecast date to the page
     function showCurrentWeather(data) {
         
         let temp = "Temperature: " + (1.8 * (data.main.temp - 273) + 32).toFixed(0) + " F°";
         let humidity = "Humidity: " + data.main.humidity;
         let wind = "Wind Speed: " + data.wind.speed.toFixed(0) + "mph";
         
-        
+        //Make sure the text areas are empty
         $("#currentCity").empty();
         $("#temp").empty();
         $("#humidity").empty();
@@ -97,7 +80,7 @@ $(document).ready(function () {
         $(".dayHumi").empty();
         $(".dayUvi").empty();
         
-        
+        //Put the date into place
         $("#currentCity").append(data.name);
         $("#temp").append(temp);
         $("#humidity").append(humidity);
@@ -182,6 +165,7 @@ $(document).ready(function () {
         
     }
 
+    //Clear the fields to clean up the page
     $("#searchInput").empty();
 
     
