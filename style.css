@@ -5,6 +5,7 @@ body {
     display: inline;
     margin: 0;
     padding: 0;
+    text-shadow: 2px 2px black;
 }
 
 div.wrapper {
@@ -43,9 +44,9 @@ article.searchHistory {
     display: block;
 }
 
-#headerText,
+/* #headerText,
 #searchTitle,
 #cityHeader,
 #fiveDayHeader {
     text-shadow: 2px 2px black;
-}
+} */
