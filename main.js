@@ -44,8 +44,12 @@ $(document).ready(function () {
     function setCity() {
         // Gets input value
         let city = document.getElementById("searchInput").value;
+
+        let choice = {
+            searchedCity: city.trim()
+        };
         // Saves data to retrieve later
-        localStorage.setItem("searchedCity", city);
+        localStorage.setItem("searchedCity", JSON.stringify(choice));
         
         let search = $("#searchHistory");
         let savedCity = $("<h5>");
@@ -110,7 +114,7 @@ $(document).ready(function () {
         }).then(function (oneCall) {
             console.log(oneCall);
 
-            let uvi = oneCall.daily[0].uvi;
+            let uvi = "UV Index: " + oneCall.daily[0].uvi;
             $("#uvIndex").append(uvi);
             
             //5 day Forecast
