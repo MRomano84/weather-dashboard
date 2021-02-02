@@ -6,7 +6,12 @@
     Simply type the name of the city which you would like the weather forecast of in the input box and click on the magnifying glass button.
 
 ### Installation
-    No installation required; this program runs completely in the browser.
+    No installation required; this program runs completely in the browser and can be found at:
+    
+
+
+
+[Weather Dashboard Link](https://MRomano84.github.io/weather-dashboard/)
 
 
 ![](./snippit.jpg)
