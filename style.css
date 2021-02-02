@@ -18,7 +18,7 @@ div.container {
     justify-content: space-evenly;
     border: 1px #05b2dc solid;
     width: auto;
-    margin: 0;
+    margin: auto;
     padding: 0;
 }
 
